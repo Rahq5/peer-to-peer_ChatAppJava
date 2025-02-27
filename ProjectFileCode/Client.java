@@ -10,7 +10,7 @@ import java.net.Socket;
 
 
 public class Client {
-    private final String name;
+    private String name;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private Socket socket;
@@ -25,24 +25,26 @@ public class Client {
         this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         
-        }catch(IOException e)
-        {shutdowneverything();}
+        }catch(IOException e){
+            ShutdownEverything();
+        }
      }
     
-    public static void main(String[] args) {
+    public static void main(String[] args)throws IOException {
         Scanner inp = new Scanner (System.in);
 
         System.out.println("write your name :");
         String username = inp.nextLine();
         
         //name validation algorithm "requiers clienthandler to search in clients array"
-        try{
-            Socket socket = new Socket("localhost" , 1234);
-            Client client = new Client(username , socket);
-        }catch(IOException e){
-            // client socket will be shutteddown with it's buffers
-        }
         
-       
+            Socket socket = new Socket("localhost" , 1111);
+            Client client = new Client(username , socket);
+        
     }
+
+    public void ShutdownEverything(){
+        System.out.println("holyshit system is down"); //u gotta change this later LOL
+    }
+    
 }
