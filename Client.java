@@ -40,8 +40,56 @@ public class Client {
         
             Socket socket = new Socket("localhost" , 1111);
             Client client = new Client(username , socket);
+
+            client.Listentomsg();
+            client.sendmessage();
         
     }
+    
+    public void Listentomsg(){
+
+        new Thread(new Runnable(){ //creates a new thread for listening 
+            public void run(){
+                String msg ;
+        
+                while(socket.isConnected()){ // if not connected it will not recive any msg
+                    try {
+                        msg = bufferedReader.readLine();
+                        System.out.println(msg);
+                    } 
+                    catch (IOException e) {
+                        // CONSIDER LATER WHAT EXCEPTION SHIULD BE HERE
+                    }
+                }
+            }
+        }).start();
+    }
+
+    public void sendmessage(){
+        Scanner inp = new Scanner(System.in);
+        String msgToSend ;
+
+       try {
+        bufferedWriter.write(name);
+        bufferedWriter.newLine();
+        bufferedWriter.flush();
+
+        while(socket.isConnected()){
+            msgToSend = inp.nextLine();
+
+            bufferedWriter.write(name+": "+msgToSend); 
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+            
+        }
+
+
+       } catch (Exception e) {
+        // CONSIDER LATER WHAT EXCEPTION SHIULD BE HERE
+       }
+    }
+    
+    
 
     public void ShutdownEverything(){
         System.out.println("holyshit system is down"); //u gotta change this later LOL

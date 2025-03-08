@@ -3,18 +3,20 @@ package ProjectFileCode;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.*;
 
-public class ClientHandler {
+public class ClientHandler implements Runnable{
 
-    public ArrayList<ClientHandler> ClientsConnected = new ArrayList<>();
+    public static ArrayList<ClientHandler> ClientsConnected = new ArrayList<>();
 
     private String username ;
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
+
 
     public ClientHandler(Socket socket){
         try {
@@ -25,11 +27,45 @@ public class ClientHandler {
         this.username = bufferedReader.readLine(); // username i'll be saved when sendMessage() is called for first time
         ClientsConnected.add(this);
 
-        } catch (Exception e) {
-           ShutdownEverything(socket , bufferedReader , bufferedWriter);
-        }
+        broadcast("Server: "+username+" has joined the chat");
 
-       
+        } catch (Exception e) {
+           // CONSIDER LATER WHAT EXCEPTION SHIULD BE HERE
+        }
+    }
+
+    public void run(){
+        String msg ;
+
+        try {
+            while(socket.isConnected()){
+            msg = bufferedReader.readLine(); 
+
+            broadcast(msg);
+
+        }
+        } catch (IOException e) {
+            // CONSIDER LATER WHAT EXCEPTION SHIULD BE HERE
+        }
+    }
+
+    public void broadcast(String msg){
+        try {
+            for(ClientHandler clientHandler : ClientsConnected){
+            
+           
+                clientHandler.bufferedWriter.write(msg);
+                clientHandler.bufferedWriter.newLine();
+                clientHandler.bufferedWriter.flush(); 
+                // .flush(); forces the buffer to write everything stored in the buffer instantly
+            
+                
+        }
+        } catch (Exception e) {
+           // CONSIDER LATER WHAT EXCEPTION SHIULD BE HERE
+        }
+        
+        
     }
 
     
