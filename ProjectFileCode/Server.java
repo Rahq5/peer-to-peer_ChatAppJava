@@ -12,7 +12,7 @@ public class Server {
     }
     public static void main(String[] args) throws IOException{
         
-        System.out.println("Server is waiting for clients");
+        System.out.println("Serveeer is waiting for clients");
         ServerSocket ss = new ServerSocket(1111); // serversocket "listener" is made to listen on port 1111
         Server server = new Server(ss);// server have the listener to start functioing
         server.run(); 

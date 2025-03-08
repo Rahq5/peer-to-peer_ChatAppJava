@@ -33,7 +33,7 @@ public class Client {
     public static void main(String[] args)throws IOException {
         Scanner inp = new Scanner (System.in);
 
-        System.out.println("write your name :");
+        System.out.println("write your nameee :");
         String username = inp.nextLine();
         
         //name validation algorithm "requiers clienthandler to search in clients array"

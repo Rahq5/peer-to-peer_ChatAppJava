@@ -27,7 +27,7 @@ public class ClientHandler implements Runnable{
         this.username = bufferedReader.readLine(); // username i'll be saved when sendMessage() is called for first time
         ClientsConnected.add(this);
 
-        broadcast("Server: "+username+" has joined the chat");
+        broadcast("Server: "+username+" hasss joined the chat");
 
         } catch (Exception e) {
            // CONSIDER LATER WHAT EXCEPTION SHIULD BE HERE

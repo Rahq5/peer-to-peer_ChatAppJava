@@ -3,5 +3,5 @@ this is a chat app java-based project that uses synchronized client server to co
 
 #Featuers:
 - **real time messaging** : all clients joined can read\send messages instantly
-- **global**: soon...
+- **global**: soon.....
 
